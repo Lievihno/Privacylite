@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0">
+
+<title>La Bonne Bible Lite</title>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+  rel="stylesheet">
+
+<link
+  rel="stylesheet"
+  href="style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SPLASH
+     ===================================================== -->
+
+<div id="splash">
+
+  <div class="splash-content">
+
+    <svg
+      width="90"
+      height="90"
+      viewBox="0 0 100 100">
+
+      <path
+        d="M10 30 Q50 5 90 30 V80 Q50 60 10 80 Z"
+        fill="white"/>
+
+    </svg>
+
+    <h1>BONNE BIBLE LITE</h1>
+
+    <p>
+      Votre compagnon quotidien
+    </p>
+
+  </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
+
+<header class="header">
+
+
+    <button
+    class="header-action search-header-btn"
+    onclick="openSearchWords()"
+    aria-label="Recherche par mots"
+    title="Recherche par mots">
+
+    <img
+      src="icons/cher.png"
+      alt="Recherche">
+
+  </button>
+
+
+
+  <!-- TITRE -->
+
+  <div class="title">
+    BONNE BIBLE
+  </div>
+
+
+  <!-- MODE SOMBRE -->
+
+  <button
+    class="dark-toggle"
+    onclick="toggleDarkMode()"
+    aria-label="Mode sombre">
+
+    <svg
+      id="themeIcon"
+      width="26"
+      height="26"
+      viewBox="0 0 24 24">
+
+      <circle
+        cx="12"
+        cy="12"
+        r="5"
+        fill="white"/>
+
+      <g
+        stroke="white"
+        stroke-width="2">
+
+        <line
+          x1="12"
+          y1="1"
+          x2="12"
+          y2="4"/>
+
+        <line
+          x1="12"
+          y1="20"
+          x2="12"
+          y2="23"/>
+
+        <line
+          x1="1"
+          y1="12"
+          x2="4"
+          y2="12"/>
+
+        <line
+          x1="20"
+          y1="12"
+          x2="23"
+          y2="12"/>
+
+      </g>
+
+    </svg>
+
+  </button>
+
+</header>
+
+
+
+<div class="glow-bar"></div>
+
+
+
+<!-- =====================================================
+     CONTRÔLES
+     ===================================================== -->
+
+<div class="controls">
+
+  <!-- UNE SEULE VERSION : LSG -->
+
+  <select
+    id="versionSelect"
+    style="display:none;">
+
+    <option value="lsg">
+      LSG
+    </option>
+
+  </select>
+
+  <!-- BOUTON LIVRES -->
+
+  <button
+    class="header-action books-header-btn"
+    onclick="openBooksPage()"
+    aria-label="Livres"
+    title="Livres">
+
+    <img
+      src="icons/livre.png"
+      alt="Livres">
+
+  </button>
+
+
+  <button
+    onclick="decreaseFont()"
+    aria-label="Réduire le texte">
+
+    A−
+
+  </button>
+
+
+  <button
+    onclick="increaseFont()"
+    aria-label="Agrandir le texte">
+
+    A+
+
+  </button>
+
+</div>
+
+
+
+<!-- =====================================================
+     CARTE DU VERSET
+     ===================================================== -->
+
+<div class="verse-card">
+
+
+  <!-- AFFICHER LE CHAPITRE -->
+
+  <button
+    class="fullscreen-btn"
+    onclick="openChapterView()"
+    aria-label="Lire le chapitre">
+
+    ⛶
+
+  </button>
+
+
+  <h2 id="ref">
+    Jean 1:1
+  </h2>
+
+
+  <p id="verse">
+    Chargement...
+  </p>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     NAVIGATION
+     ===================================================== -->
+
+<div class="nav-buttons">
+
+
+  <button
+    class="circle"
+    onclick="prevVerse()"
+    aria-label="Verset précédent">
+
+    ←
+
+  </button>
+
+
+  <button
+    class="circle"
+    onclick="shareVerse()"
+    aria-label="Partager">
+
+    ⇪
+
+  </button>
+
+
+  <button
+    class="circle"
+    onclick="nextVerse()"
+    aria-label="Verset suivant">
+
+    →
+
+  </button>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     RECHERCHE DIRECTE D'UNE RÉFÉRENCE
+     ===================================================== -->
+
+<div class="search-box">
+
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Ex : Jean 1:1">
+
+  <button
+    onclick="searchVerse()"
+    aria-label="Rechercher">
+
+    ➤
+
+  </button>
+
+</div>
+
+
+
+<!-- =====================================================
+     PAGE LIVRES
+     ===================================================== -->
+
+<div
+  id="booksPage"
+  class="books-page"
+  style="display:none;">
+
+
+  <div class="books-header">
+
+
+    <button
+      class="back-button"
+      onclick="goBackFromBooks()">
+
+      ←
+
+    </button>
+
+
+    <h1 id="booksTitle">
+      Livres
+    </h1>
+
+
+  </div>
+
+
+
+  <!-- TESTAMENTS -->
+
+  <div
+    id="testamentList"
+    class="books-content">
+
+
+    <button
+      class="book-option"
+      onclick="showBooks('old')">
+
+      <span>
+        Ancien testament
+      </span>
+
+      <span>
+        ›
+      </span>
+
+    </button>
+
+
+    <button
+      class="book-option"
+      onclick="showBooks('new')">
+
+      <span>
+        Nouveau testament
+      </span>
+
+      <span>
+        ›
+      </span>
+
+    </button>
+
+
+  </div>
+
+
+
+  <!-- LIVRES -->
+
+  <div
+    id="booksList"
+    class="books-content"
+    style="display:none;">
+
+  </div>
+
+
+
+  <!-- CHAPITRES -->
+
+  <div
+    id="chaptersList"
+    class="books-content"
+    style="display:none;">
+
+  </div>
+
+
+
+  <!-- VERSETS -->
+
+  <div
+    id="versesList"
+    class="books-content"
+    style="display:none;">
+
+  </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     RECHERCHE PAR MOTS
+     ===================================================== -->
+
+<div
+  id="wordSearchPage"
+  class="books-page"
+  style="display:none;">
+
+
+  <div class="books-header">
+
+
+    <button
+      class="back-button"
+      onclick="closeWordSearch()">
+
+      ←
+
+    </button>
+
+
+    <h1>
+      Recherche
+    </h1>
+
+
+  </div>
+
+
+
+  <div class="books-content">
+
+
+    <input
+      type="text"
+      id="wordSearchInput"
+      placeholder="Ex : amour, foi, Dieu..."
+      class="word-search-input">
+
+
+    <button
+      class="book-option"
+      onclick="searchByWords()">
+
+      <span>
+        Rechercher
+      </span>
+
+      <span>
+        🔍
+      </span>
+
+    </button>
+
+
+    <div
+      id="wordSearchResults"
+      style="margin-top:15px;">
+
+    </div>
+
+
+  </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     MODAL
+     ===================================================== -->
+
+<div
+  id="modal"
+  class="modal">
+
+
+  <div class="modal-content">
+
+
+    <span
+      class="close-modal"
+      onclick="closeModal()">
+
+      ✕
+
+    </span>
+
+
+    <div id="modalBody"></div>
+
+
+  </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     LECTURE D'UN CHAPITRE
+     ===================================================== -->
+
+<div
+  id="chapterView"
+  class="chapter-view">
+
+
+  <div class="chapter-header">
+
+
+    <h2 id="chapterTitle"></h2>
+
+
+    <button
+      onclick="closeChapterView()">
+
+      ➜
+
+    </button>
+
+
+  </div>
+
+
+
+  <div
+    id="chapterContent"
+    class="chapter-content">
+
+  </div>
+
+
+
+  <!-- ZOOM -->
+
+  <div class="chapter-zoom-controls">
+
+
+    <button
+      class="chapter-zoom-button"
+      onclick="increaseChapterZoom()">
+
+      A+
+
+    </button>
+
+
+    <button
+      class="chapter-zoom-button"
+      onclick="decreaseChapterZoom()">
+
+      A−
+
+    </button>
+
+
+  </div>
+
+
+
+  <!-- NAVIGATION CHAPITRES -->
+
+  <div
+    id="chapterNavigationButtons"
+    class="chapter-navigation-buttons">
+
+
+    <button
+      class="chapter-nav-button"
+      onclick="previousChapter()">
+
+      ←
+
+    </button>
+
+
+    <button
+      class="chapter-nav-button chapter-share-button"
+      onclick="shareChapter()">
+
+      ⇧
+
+    </button>
+
+
+    <button
+      class="chapter-nav-button"
+      onclick="nextChapter()">
+
+      →
+
+    </button>
+
+
+  </div>
+
+
+</div>
+
+
+
+<script src="script1.js"></script>
+
+
+</body>
+</html>
